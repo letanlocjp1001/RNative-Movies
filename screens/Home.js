@@ -16,6 +16,7 @@ import {
   getDocumenttaryMovies,
 } from '../services/services';
 import List from '../components/List';
+import Error from '../components/Error';
 
 const dimensions = Dimensions.get('screen');
 
@@ -62,8 +63,8 @@ const Home = () => {
           setDocumentaryMovies(documentaryMoviesData);
         },
       )
-      .catch(err => {
-        setError(err);
+      .catch(() => {
+        setError(true);
       })
       .finally(() => {
         setLoaded(true);
@@ -71,7 +72,7 @@ const Home = () => {
   }, []);
   return (
     <>
-      {!loaded && (
+      {loaded && !error && (
         <ScrollView>
           {moviesImages && (
             <View style={styles.sliderContainer}>
@@ -108,9 +109,10 @@ const Home = () => {
           )}
         </ScrollView>
       )}
-      {loaded && (
+      {!loaded && (
         <ActivityIndicator size="large" style={styles.sliderContainer} />
       )}
+      {error && <Error />}
     </>
   );
 };
