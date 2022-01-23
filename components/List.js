@@ -8,7 +8,7 @@ const propTypes = {
   content: PropTypes.array,
 };
 
-const List = ({title, content}) => {
+const List = ({title, content, navigation}) => {
   return (
     <>
       <View>
@@ -18,7 +18,7 @@ const List = ({title, content}) => {
       <FlatList
         data={content}
         keyExtractor={item => item.id}
-        renderItem={({item}) => <Card item={item} />}
+        renderItem={({item}) => <Card navigation={navigation} item={item} />}
         horizontal={true}
       />
     </>

@@ -7,9 +7,11 @@ const placeholderImage = require('../assets/images/placeholder.png');
 const propTypes = {
   item: PropTypes.object,
 };
-const Card = ({item}) => {
+const Card = ({item, navigation}) => {
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => navigation.navigate('Detail', {movieID: item.id})}>
       <Image
         resizeMode="cover"
         style={styles.image}
