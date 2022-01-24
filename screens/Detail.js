@@ -8,7 +8,9 @@ import {
   Dimensions,
   ActivityIndicator,
 } from 'react-native';
+
 import {getMovies} from '../services/services';
+import dateFormat from 'dateformat';
 
 import placeholderImage from '../assets/images/placeholder.png';
 
@@ -46,6 +48,30 @@ const Detail = ({route, navigation}) => {
           />
           <View style={styles.container}>
             <Text style={styles.movieTitle}>{movieDetail.title}</Text>
+
+            {movieDetail.genres && (
+              <View style={styles.genresContainer}>
+                {movieDetail.genres.map(genre => {
+                  return (
+                    <Text style={styles.genre} key={genre.id}>
+                      {genre.name}
+                    </Text>
+                  );
+                })}
+              </View>
+            )}
+            {/* <StarRating
+              disabled={true}
+              maxStars={5}
+              rating={movieDetail.vote_average / 2}
+              fullStarColor={'gold'}
+              starSize={30}
+            /> */}
+            <Text style={styles.overview}>{movieDetail.overview}</Text>
+            <Text style={styles.release}>
+              {'Release date: ' +
+                dateFormat(movieDetail.release_date, 'mmmm dd, yyyy')}
+            </Text>
           </View>
         </ScrollView>
       )}
@@ -60,6 +86,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  genresContainer: {
+    flexDirection: 'row',
+    alignContent: 'center',
+  },
+  genre: {
+    marginHorizontal: 5,
+    fontWeight: 'bold',
+    marginVertical: 10,
+  },
   image: {
     height: height / 2.5,
   },
@@ -67,6 +102,12 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginVertical: 10,
+  },
+  overview: {
+    padding: 15,
+  },
+  release: {
+    fontWeight: 'bold',
   },
 });
 
